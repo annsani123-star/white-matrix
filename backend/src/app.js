@@ -7,16 +7,21 @@ require("./config/passport");
 
 const app = express();
 
+// --- FIXED CORS SECTION ---
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: "https://white-matrix.vercel.app", // Hardcoded to your frontend URL
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
+// --------------------------
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(passport.initialize());
+
 // Routes (placeholders)
 app.use("/api/health", require("./routes/health"));
 app.use("/api/auth", require("./routes/auth"));
